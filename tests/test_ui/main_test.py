@@ -4,14 +4,26 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
     yield driver
     driver.quit()
 
-@pytest.mark.parametrize("url", ["https://only.digital/", "https://only.digital/projects", "https://only.digital/company",
-                                 "https://only.digital/fields", "https://only.digital/blog"])
+
+page = "https://only.digital/"
+
+
+@pytest.mark.parametrize("url", [
+    "page",
+    "page/projects",
+    "page/company",
+    "page/fields",
+    "page/blog"
+])
 def test_footer_elements(driver, url):
     driver.get(url)
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "footer")))
