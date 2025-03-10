@@ -18,11 +18,11 @@ page = "https://only.digital/"
 
 
 @pytest.mark.parametrize("url", [
-    "page",
-    "page/projects",
-    "page/company",
-    "page/fields",
-    "page/blog"
+    page,
+    f"{page}projects",
+    f"{page}company",
+    f"{page}fields",
+    f"{page}blog"
 ])
 def test_footer_elements(driver, url):
     driver.get(url)
